@@ -13,10 +13,19 @@ url路径解析, 为了解决在拼接链接中多个`/`连接问题, 感谢 [@5
 ### 例子
 
 ```js
-// => //xuexb.com/static/a.js
-urlpath('//xuexb.com/', '//static/a.js')
+urlpath('//xuexb.com/', '//static/a.js')                        // '//xuexb.com/static/a.js'
 
-// => http://xuexb.com/static/a.js
-urlpath('http://xuexb.com/', '//', '//static//', '/a.js')
-urlpath('http://xuexb.com/////static///a.js')
+urlpath('http://xuexb.com/', '//', '//static//', '/a.js')       // 'http://xuexb.com/static/a.js'
+urlpath('http://xuexb.com/////static///a.js')                   // 'http://xuexb.com/static/a.js'
+```
+
+请注意和 [url.resolve](https://nodejs.org/api/url.html#url_url_resolve_from_to) 的区别:
+
+```
+url.resolve('http://example.com/', '/one')                      // 'http://example.com/one'
+url.resolve('http://example.com/one', '/two')                   // 'http://example.com/two'
+
+
+urlpath('http://example.com/', '/one')                          // 'http://example.com/one'
+urlpath('http://example.com/one', '/one')                       // 'http://example.com/one/one'
 ```
